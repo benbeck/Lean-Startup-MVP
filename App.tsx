@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useRef, useCallback } from 'react://esm.sh/react@19.2.4';
+import React, { useState, useEffect, useRef, useCallback } from 'https://esm.sh/react@19.2.4';
 import { CanvasData, CanvasKey } from './types.ts';
 import { CANVAS_SECTIONS, INITIAL_CANVAS_DATA } from './constants.ts';
 import CanvasSection from './components/CanvasSection.tsx';
