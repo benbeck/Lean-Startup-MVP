@@ -1,35 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lean Startup MVP Roadmap</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
-    <!-- Babel Standalone for in-browser transpilation of TypeScript/JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <script>
-      // Shim process.env for compatibility with SDKs expecting a Node environment
-      window.process = { 
-        env: { 
-          API_KEY: '' 
-        } 
-      };
+    <!-- Import map MUST come BEFORE any module scripts -->
+    <script type="importmap">
+    {
+        "imports": {
+            "react": "https://esm.sh/react@18.2.0",
+            "react-dom": "https://esm.sh/react-dom@18.2.0",
+            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
+        }
+    }
     </script>
-
-    <!-- Entry point: Babel handles the transpilation and ESM loading -->
-    <script type="text/babel" data-type="module" data-presets="react,typescript" src="index.tsx"></script>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.4/"
-  }
-}
-</script>
 </head>
-  <body class="bg-slate-50 min-h-screen text-slate-900">
+<body>
     <div id="root"></div>
-  </body>
+    
+    <!-- Add type="module" to enable bundling -->
+    <script type="module" src="/index.tsx"></script>
+</body>
 </html>
