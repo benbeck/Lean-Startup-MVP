@@ -50,6 +50,7 @@ const App: React.FC = () => {
     setIsPrinting(true);
     window.scrollTo({ top: 0, behavior: 'auto' });
 
+    // Allow time for the UI to transition into the "isPrinting" state (hiding inputs, showing full text)
     setTimeout(() => {
       const element = document.getElementById('canvas-content');
       if (!element) {
@@ -60,13 +61,14 @@ const App: React.FC = () => {
       const opt = {
         margin: [10, 10, 10, 10],
         filename: `${data.projectName.replace(/\s+/g, '_')}_MVP_Roadmap.pdf`,
-        image: { type: 'jpeg', quality: 1.0 },
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
           scale: 2, 
           useCORS: true,
           logging: false,
           letterRendering: true,
           scrollY: 0,
+          windowWidth: 1200, // Forces consistent width to prevent content being cut off
           backgroundColor: '#ffffff'
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
@@ -77,10 +79,10 @@ const App: React.FC = () => {
       html2pdf().set(opt).from(element).save().then(() => {
         setIsPrinting(false);
       }).catch((err: any) => {
-        console.error("PDF Error:", err);
+        console.error("PDF Export Error:", err);
         setIsPrinting(false);
       });
-    }, 2000); // Increased delay for cleaner link rendering and layout settling
+    }, 1500); 
   }, [data.projectName]);
 
   const getSection = (key: CanvasKey) => CANVAS_SECTIONS.find(s => s.id === key)!;
