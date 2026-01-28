@@ -1,5 +1,5 @@
 
-import { CanvasData, SectionMetadata } from './types';
+import { CanvasData, SectionMetadata } from './types.ts';
 
 export const CANVAS_SECTIONS: SectionMetadata[] = [
   {
