@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { CanvasData, CanvasKey } from './types';
-import { CANVAS_SECTIONS, INITIAL_CANVAS_DATA } from './constants';
-import CanvasSection from './components/CanvasSection';
-import { generateCanvasSuggestions } from './services/geminiService';
+import { CanvasData, CanvasKey } from './types.ts';
+import { CANVAS_SECTIONS, INITIAL_CANVAS_DATA } from './constants.ts';
+import CanvasSection from './components/CanvasSection.tsx';
+import { generateCanvasSuggestions } from './services/geminiService.ts';
 
 const RowContainer = ({ children, isPrinting }: { children: React.ReactNode, isPrinting?: boolean }) => (
   <div className={`grid grid-cols-1 ${isPrinting ? 'gap-0' : 'md:grid-cols-2 gap-8 mb-8'} last:mb-0 w-full`}>
@@ -50,7 +50,6 @@ const App: React.FC = () => {
     setIsPrinting(true);
     window.scrollTo({ top: 0, behavior: 'auto' });
 
-    // Allow time for the UI to transition into the "isPrinting" state (hiding inputs, showing full text)
     setTimeout(() => {
       const element = document.getElementById('canvas-content');
       if (!element) {
@@ -68,7 +67,7 @@ const App: React.FC = () => {
           logging: false,
           letterRendering: true,
           scrollY: 0,
-          windowWidth: 1200, // Forces consistent width to prevent content being cut off
+          windowWidth: 1200,
           backgroundColor: '#ffffff'
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
@@ -89,7 +88,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#F9FAFB] text-slate-900">
-      {/* Top Navbar */}
       <header className="bg-white border-b border-slate-200 p-5 shadow-sm sticky top-0 z-50 flex flex-col sm:flex-row justify-between items-center gap-4 no-print">
         <div className="flex items-center gap-4">
           <div className="bg-[#0055FF] w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg">L</div>
@@ -118,7 +116,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content Area */}
       <main className={`flex-1 flex flex-col items-center ${isPrinting ? 'p-0 bg-white' : 'p-6 sm:p-12'}`}>
         <div 
           id="canvas-content"
@@ -126,7 +123,6 @@ const App: React.FC = () => {
           className={`w-full max-w-5xl flex flex-col transition-all duration-300 ${isPrinting ? 'bg-white p-4' : ''}`}
           style={isPrinting ? { height: 'auto', overflow: 'visible' } : {}}
         >
-          {/* Metadata Section */}
           <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm ${isPrinting ? 'border-b-2 border-slate-200 mb-16 rounded-none' : ''}`}>
             <div>
               <label className="block text-[11px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Company / Project</label>
@@ -166,7 +162,6 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Vertical Stack Layout */}
           <div className="flex flex-col w-full">
             <RowContainer isPrinting={isPrinting}>
               <CanvasSection metadata={getSection('tam')} value={data.tam} onChange={(v) => updateField('tam', v)} isPrinting={isPrinting} />
@@ -205,7 +200,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Footer Action */}
         <div className="no-print flex flex-col items-center gap-6 py-16 mb-16">
             <button 
               onClick={handleExportPdf}
@@ -218,7 +212,6 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      {/* Modern AI Modal */}
       {showAiModal && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[100] flex items-center justify-center p-4">
           <div className="bg-white rounded-[3rem] shadow-3xl w-full max-w-2xl overflow-hidden border border-slate-100 animate-in fade-in zoom-in duration-300">

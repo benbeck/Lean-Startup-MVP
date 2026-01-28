@@ -1,6 +1,6 @@
 
 import React, { useRef, useEffect } from 'react';
-import { SectionMetadata } from '../types';
+import { SectionMetadata } from '../types.ts';
 
 interface CanvasSectionProps {
   metadata: SectionMetadata;
@@ -78,11 +78,6 @@ const CanvasSection: React.FC<CanvasSectionProps> = ({
           </div>
         ) : (
           <div className="relative group">
-            {/* Overlay for clicking links while editing if desired, 
-                but usually just the textarea for input. 
-                For MVP, we use textarea for input and only linkify in "display" mode 
-                which PDF uses. However, let's also show links when not focused 
-                if we want extra polish. For now, simple textarea is most functional. */}
             <textarea
               ref={textareaRef}
               className={`w-full p-6 resize-none overflow-hidden focus:outline-none text-[15px] text-slate-700 transition-all duration-200 leading-relaxed placeholder:text-slate-300 
