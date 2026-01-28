@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'https://esm.sh/react@19.2.4';
 import { SectionMetadata } from '../types.ts';
 
 interface CanvasSectionProps {

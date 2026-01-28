@@ -8,42 +8,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
-    <!-- Babel Standalone: Converts TSX to JS in the browser -->
+    <!-- Babel Standalone for in-browser transpilation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <script>
-      // 1. Establish the process shim IMMEDIATELY before any imports
+      // Shim process.env immediately
       window.process = { 
         env: { 
-          API_KEY: '' // This will be safely ignored or overridden by the environment
+          API_KEY: '' 
         } 
       };
-      
-      // 2. Configure Babel to handle TypeScript and React modules
-      Babel.registerPreset('env-plus', {
-        presets: [
-          [Babel.availablePresets['env'], { "modules": false }],
-          Babel.availablePresets['react'],
-          Babel.availablePresets['typescript']
-        ]
-      });
     </script>
 
-    <script type="importmap">
+    <!-- Use text/babel to let Babel handle the fetching and transpilation -->
+    <script type="text/babel" data-type="module" data-presets="react,typescript" src="index.tsx"></script>
+  <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@19.2.4",
-    "react-dom/client": "https://esm.sh/react-dom@19.2.4/client",
-    "@google/genai": "https://esm.sh/@google/genai@1.38.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "react/": "https://esm.sh/react@^19.2.4/"
   }
 }
 </script>
-
-    <!-- Use text/babel with data-type="module" to tell Babel to process imports as ES modules -->
-    <script type="text/babel" data-type="module" data-presets="react,typescript" src="index.tsx"></script>
-  </head>
+</head>
   <body class="bg-slate-50 min-h-screen text-slate-900">
     <div id="root"></div>
   </body>
