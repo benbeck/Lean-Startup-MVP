@@ -1,5 +1,4 @@
-
-import { GoogleGenAI, Type } from "https://esm.sh/@google/genai@1.38.0";
+import { GoogleGenAI, Type } from "@google/genai";
 import { CanvasData } from "../types.ts";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
@@ -31,7 +30,7 @@ const canvasSchema = {
 export const generateCanvasSuggestions = async (prompt: string): Promise<Partial<CanvasData>> => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-3-pro-preview",
       contents: `Generate a complete Lean Startup MVP Roadmap strategy for: ${prompt}.`,
       config: {
         responseMimeType: "application/json",
